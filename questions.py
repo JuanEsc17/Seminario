@@ -1,4 +1,5 @@
 import random
+import sys
 
 # Preguntas para el juego
 questions = [
@@ -25,7 +26,7 @@ correct_answers_index = [1, 2, 0, 3, 1]
 for _ in range(3):
     # Se selecciona una pregunta aleatoria
     question_index = random.randint(0, len(questions) - 1)
-
+    
     # Se muestra la pregunta y las respuestas posibles
     print(questions[question_index])
     for i, answer in enumerate(answers[question_index]):
@@ -33,16 +34,23 @@ for _ in range(3):
     
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
-        user_answer = int(input("Respuesta: ")) - 1
-        # Se verifica si la respuesta es correcta
+        try:
+            user_answer = int(input("Respuesta: ")) - 1
+            if user_answer < 0 or user_answer >= len(answers[question_index]):
+                print("Respuesta no valida")
+                sys.exit(1)
+        except ValueError:
+            print("Respuesta no valida")
+            sys.exit(1)
+            
+    # Se verifica si la respuesta es correcta 
         if user_answer == correct_answers_index[question_index]:
             print("¡Correcto!")
             break
-    else:
+        else:
         # Si el usuario no responde correctamente después de 2 intentos,
         # se muestra la respuesta correcta
-        print("Incorrecto. La respuesta correcta es:")
-        print(answers[question_index][correct_answers_index[question_index]])
-    
+            print("Incorrecto. La respuesta correcta es:")
+            print(answers[question_index][correct_answers_index[question_index]])
     # Se imprime un blanco al final de la pregunta
     print()
