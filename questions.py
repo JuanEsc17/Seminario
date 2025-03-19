@@ -28,12 +28,11 @@ puntaje = float(0)
 # Genero pack de preguntas y respuestas
 question_pack = list(zip(questions, answers, correct_answers_index))
 
-#
+# Elijo 3 preguntas aleatoriamente sin repeticiones
+questions_to_ask = random.sample(question_pack, k=3)
 
 # El usuario deberá contestar 3 preguntas
-for _ in range(3):
-    # Se selecciona una pregunta aleatoria
-    question, answer_choices, correct_index = random.choice(question_pack)
+for question, answer_choices, correct_index in questions_to_ask:
     # Se muestra la pregunta y las respuestas posibles
     print(question)
     for i, answer in enumerate(answer_choices):
