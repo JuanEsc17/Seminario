@@ -40,29 +40,27 @@ for question, answer_choices, correct_index in questions_to_ask:
     
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
-        try:
-            user_answer = int(input("Respuesta: ")) - 1
-            if user_answer < 0 or user_answer >= len(answer_choices):
-                print("Respuesta no valida")
-                sys.exit(1)
-        except ValueError:
-            print("Respuesta no valida")
-            sys.exit(1)
+         user_answer = input("Respuesta: ")
+         if not user_answer.isdigit():
+             print("Respuesta no valida")
+             sys.exit(1)
+         else:
+             user_answer = int(user_answer)-1
+             if user_answer < 0 or user_answer >= len(answer_choices):
+                 print("Respuesta no valida") 
+                 sys.exit(1)
             
     # Se verifica si la respuesta es correcta 
-        if user_answer == correct_index:
+         if user_answer == correct_index:
             print("¡Correcto!")
             puntaje += 1
             break
-        else:
+    else:
         # Si el usuario no responde correctamente después de 2 intentos,
         # se muestra la respuesta correcta
-            if intento == 0:
-                print("Incorrecto")
-            else:
-                print("Incorrecto. La respuesta correcta es:")
-                print(answer_choices[correct_index])
-            puntaje -= 0.5
+             print("Incorrecto. La respuesta correcta es:")
+             print(answer_choices[correct_index])
+             puntaje -= 0.5
     # Se imprime un blanco al final de la pregunta
     print()
 print("Tu puntaje es")
